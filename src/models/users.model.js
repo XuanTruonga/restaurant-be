@@ -4,8 +4,8 @@ import bcrypt from "bcrypt";
 class UserModel extends BaseModel {
   constructor() {
     super({
-      table: "users",
-      fillable: ["id", "full_name", "email", "password", "address","role"],
+      table: "user",
+      fillable: ["id","username", "name", "email", "password", "isLock", "role"],
     });
   }
 

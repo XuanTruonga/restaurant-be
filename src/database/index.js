@@ -1,8 +1,7 @@
-import mysql from "mysql";
+import mysql from "mysql2";
 import dotenv from "dotenv";
 
 dotenv.config();
-console.log("🚀 ~ pro:", process.env.DATABASE_HOST);
 
 export const connection = mysql.createConnection({
   host: process.env.DATABASE_HOST,
@@ -12,11 +11,10 @@ export const connection = mysql.createConnection({
   database: process.env.DATABASE_NAME,
 });
 
-connection.connect(function (err) {
+connection.connect((err) => {
   if (err) {
-    console.error("error connecting: " + err.stack);
+    console.error("Không thể kết nối đến cơ sở dữ liệu:", err);
     return;
   }
-
-  console.log("Connect success " + connection.threadId);
+  console.log("Đã kết nối đến cơ sở dữ liệu MySQL");
 });

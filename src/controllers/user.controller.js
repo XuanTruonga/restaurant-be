@@ -1,5 +1,3 @@
-import { async } from "@firebase/util";
-import { connection } from "../Database";
 import { responseError, responseSuccess } from "../helpers/response";
 
 import usersModel from "../models/users.model";
