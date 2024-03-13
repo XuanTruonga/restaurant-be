@@ -2,6 +2,7 @@ import mysql from "mysql";
 import dotenv from "dotenv";
 
 dotenv.config();
+console.log("🚀 ~ pro:", process.env.DATABASE_HOST);
 
 export const connection = mysql.createConnection({
   host: process.env.DATABASE_HOST,
