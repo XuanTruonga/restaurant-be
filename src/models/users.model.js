@@ -5,7 +5,7 @@ class UserModel extends BaseModel {
   constructor() {
     super({
       table: "user",
-      fillable: ["id","username", "name", "email", "password", "isLock", "role"],
+      fillable: ["username", "name", "email", "password", "isLock", "role","phone"],
     });
   }
 
