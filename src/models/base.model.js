@@ -9,82 +9,52 @@ class BaseModel {
   }
 
   // Get All
-  async read(res) {
-    connection.query(`SELECT * from ${this.table}`, (error, results) => {
-      if (error) {
-        return responseError(res, error);
-      }
-
-      const data = {
-        message: "Lấy dữ liệu thành công",
-        data: results,
-      };
-
-      return responseSuccess(res, data);
+  async read() {
+    return new Promise((resolve, reject) => {
+      connection.query(`SELECT * from ${this.table}`, (error, result) => {
+        this.hanldeResult(resolve, reject, error, result);
+      });
     });
   }
 
-  // Create
-  async create(data, callback) {
+  // Create *
+  async create(data) {
     const fields = this.fillable.join(", ");
-    const placeholders = this.fillable.map(() => "?").join(", ");
+    const placeholders = this.placeholders;
     const values = this.fillable.map((field) => data[field]);
 
     const query = `INSERT INTO ${this.table} (${fields}) VALUES (${placeholders})`;
 
-    connection.query(query, values, callback);
-  }
-
-  // find One by cloumn name
-  async findOne(res, column_name, column_value) {
     return new Promise((resolve, reject) => {
-      const query = `SELECT * FROM ${this.table} WHERE ${column_name} = ?`;
-
-      connection.query(query, [column_value], (error, results) => {
-        if (error) {
-          return reject(error);
-        }
-
-        if (results.length === 0) {
-          return responseError(res, { message: "Không tìm thấy dữ liệu." });
-        } else {
-          resolve(results[0]);
-        }
+      connection.query(query, values, (error, result) => {
+        this.hanldeResult(resolve, reject, error, result);
       });
     });
   }
-  async find(column_name, column_value) {
-    return new Promise((resolve, reject) => {
-      const query = `SELECT * FROM ${this.table} WHERE ${column_name} = ?`;
 
-      connection.query(query, [column_value], (error, results) => {
-        if (error) {
-          return reject(error);
-        }
-        return resolve(results[0]);
+  // find One by cloumn name
+  async findOne(columnName, columnValue) {
+    return new Promise((resolve, reject) => {
+      const query = `SELECT * FROM ${this.table} WHERE ${columnName} = ?`;
+
+      connection.query(query, [columnValue], (error, result) => {
+        this.hanldeResult(resolve, reject, error, ...result);
       });
     });
   }
 
   // update
-  async update(column_name, column_value, data) {
+  async update(columnName, columnValue, data) {
     return new Promise((resolve, reject) => {
-      const updates = this.fillable
-        .filter((field) => field !== "id")
-        .map((field) => `${field} = ?`)
-        .join(", ");
-      const values = this.fillable
-        .filter((field) => field !== "id")
-        .map((field) => data[field]);
+      const updates = Object.keys(data).join(", ");
+      console.log("🚀 ~ updates:", updates);
+      const values = Object.values(data);
+      console.log("🚀 ~ values:", values);
+      const query = `UPDATE ${this.table} SET ${updates} WHERE ${columnName} = ?`;
 
-      const query = `UPDATE ${this.table} SET ${updates} WHERE ${column_name} = ?`;
-
-      connection.query(query, [...values, column_value], (error, results) => {
-        if (error) {
-          return reject(error);
-        }
-
-        resolve({ message: "Cập nhật thành công.", data: results[0] });
+      connection.query(query, [...values, columnValue], (error, result) => {
+        console.log("🚀 ~ result:", result);
+        this.hanldeResult(resolve, reject, error, ...result);
       });
     });
   }
@@ -93,7 +63,7 @@ class BaseModel {
   async delete(res, id) {
     const query = `DELETE FROM ${this.table} WHERE id = ?`;
 
-    connection.query(query, [id], (error, results) => {
+    connection.query(query, [id], (error, result) => {
       if (error) {
         return responseError(res, error);
       }
@@ -104,6 +74,14 @@ class BaseModel {
 
       return responseSuccess(res, data);
     });
+  }
+
+  hanldeResult(resolve, reject, error, result) {
+    if (error) {
+      console.log("🚀 ~ error:", error);
+      return reject(error);
+    }
+    return resolve(result);
   }
 }
 

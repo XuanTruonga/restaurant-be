@@ -1,0 +1,142 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "restaurant",
+    "dateExported": "2024-03-17T07:50:04.344Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "561772a9-908e-4b96-803e-431f893ad59d",
+            "name": "auth",
+            "containerId": "",
+            "created": "2024-03-16T03:54:01.482Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "21caaccb-9fa7-4da1-a1d8-113d9488009f",
+            "name": "product",
+            "containerId": "",
+            "created": "2024-03-16T03:54:07.266Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "84df91f7-1906-4a36-9b86-ad6e8ba7e84d",
+            "name": "category",
+            "containerId": "",
+            "created": "2024-03-16T03:54:16.920Z",
+            "sortNum": 30000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "36a3b15c-7217-4fba-bb42-12cc63982758",
+            "colId": "2acbff11-6b49-4324-8925-fc929e567473",
+            "containerId": "561772a9-908e-4b96-803e-431f893ad59d",
+            "name": "create",
+            "url": "localhost:5001/api/auth/create",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-03-16T03:54:24.632Z",
+            "modified": "2024-03-16T06:25:20.510Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"duong\",\n  \"name\": \"Nguyen Duong\",\n  \"password\": \"Duong1803\",\n  \"role\": \"EMPLOYEE\",\n  \"email\": \"duonga@gmail.com\",\n  \"phone\": \"0981232223\"\n}",
+                "form": []
+            },
+            "reqType": "post",
+            "tests": []
+        },
+        {
+            "_id": "bcd26a0d-2ffa-48f7-8ed7-685e4c9ae4c3",
+            "colId": "2acbff11-6b49-4324-8925-fc929e567473",
+            "containerId": "561772a9-908e-4b96-803e-431f893ad59d",
+            "name": "sign-in",
+            "url": "localhost:5001/api/auth/sign-in",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2024-03-16T03:55:52.932Z",
+            "modified": "2024-03-16T06:26:12.466Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\":\"duong\",\n  \"password\":\"Duong1803\"\n}",
+                "form": []
+            },
+            "reqType": "post",
+            "tests": []
+        },
+        {
+            "_id": "f7d41f78-319b-4bc8-a8be-b8c0c0c028a8",
+            "colId": "2acbff11-6b49-4324-8925-fc929e567473",
+            "containerId": "561772a9-908e-4b96-803e-431f893ad59d",
+            "name": "findById",
+            "url": "localhost:5001/api/auth/by-id/1",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-03-16T03:56:02.599Z",
+            "modified": "2024-03-16T05:42:37.932Z",
+            "headers": [],
+            "params": [],
+            "reqType": "get",
+            "tests": []
+        },
+        {
+            "_id": "4c0c50ea-e594-4dc3-884f-1e992c4f2bf8",
+            "colId": "2acbff11-6b49-4324-8925-fc929e567473",
+            "containerId": "561772a9-908e-4b96-803e-431f893ad59d",
+            "name": "getAll",
+            "url": "localhost:5001/api/auth",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2024-03-16T05:25:24.472Z",
+            "modified": "2024-03-17T04:23:17.722Z",
+            "headers": [],
+            "params": [],
+            "reqType": "get",
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6Ik5ndXllbiBEdW9uZyIsInVzZXJuYW1lIjoiZHVvbmciLCJwYXNzd29yZCI6IiQyYiQxMCRTYy9pQUZFWUwwNDRBZjJ2NWkzUGcudEpBZnU4dFRFUktJc2M0Vy9xVDhaM1U3OWRXck1NcSIsInJvbGUiOiJFTVBMT1lFRSIsImVtYWlsIjoiZHVvbmdhQGdtYWlsLmNvbSIsInBob25lIjoiMDk4MTIzMjIyMyIsImlzTG9jayI6MCwiaWF0IjoxNzEwNTcwMzcyLCJleHAiOjE3MTA2MDYzNzJ9.Ec_AtZo-Izi8ZU8635g9pSrv85SJlIk6BBXRsFdO09I"
+            },
+            "tests": []
+        },
+        {
+            "_id": "147b76e0-7917-4334-a38b-948dee54cd38",
+            "colId": "2acbff11-6b49-4324-8925-fc929e567473",
+            "containerId": "561772a9-908e-4b96-803e-431f893ad59d",
+            "name": "verifyToken",
+            "url": "localhost:5001/api/auth/verify-token",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2024-03-16T05:56:43.656Z",
+            "modified": "2024-03-16T05:57:34.202Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik5ndXllbiBEdW9uZyIsInVzZXJuYW1lIjoiaG9hbmdoYSIsInBhc3N3b3JkIjoiJDJiJDEwJFdUOWlJMDdSVGpLZUx2Wmhxc1pqaU9vNzBJbnR4MG0xSG0weDkySGVDLm5yclhaYnEuVHVhIiwicm9sZSI6IkFETUlOIiwiZW1haWwiOiJob2FuZ2hhQGdtYWlsLmNvbSIsInBob25lIjoiMDk4MTIzMjIzMyIsImlzTG9jayI6MCwiaWF0IjoxNzEwNTY2NjM4LCJleHAiOjE3MTA2MDI2Mzh9.wynHBXRAHoAgTnlD8AltS7OfJhLdlDxCHGaoN3lXwmw"
+            },
+            "tests": []
+        },
+        {
+            "_id": "36dd4c48-cf1d-4ace-a9ea-53b52dacf1cc",
+            "colId": "2acbff11-6b49-4324-8925-fc929e567473",
+            "containerId": "561772a9-908e-4b96-803e-431f893ad59d",
+            "name": "update",
+            "url": "localhost:5001/api/auth/update/1",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2024-03-17T04:23:44.588Z",
+            "modified": "2024-03-17T04:25:53.314Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"duong\",\n  \"name\": \"Nguyen Duong 22\",\n  \"password\": \"Duong1803\",\n  \"role\": \"EMPLOYEE\",\n  \"email\": \"duonga@gmail.com\",\n  \"phone\": \"0981232223\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
