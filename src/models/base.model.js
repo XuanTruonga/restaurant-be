@@ -25,24 +25,14 @@ class BaseModel {
   }
 
   // Create
-  async create(res, data) {
+  async create(data, callback) {
     const fields = this.fillable.join(", ");
     const placeholders = this.fillable.map(() => "?").join(", ");
     const values = this.fillable.map((field) => data[field]);
 
     const query = `INSERT INTO ${this.table} (${fields}) VALUES (${placeholders})`;
 
-    connection.query(query, values, (error, results) => {
-      if (error) {
-        return responseError(res, error);
-      }
-
-      const resdata = {
-        message: "Tạo mới thành công.",
-      };
-
-      return responseSuccess(res, resdata);
-    });
+    connection.query(query, values, callback);
   }
 
   // find One by cloumn name
@@ -63,7 +53,7 @@ class BaseModel {
       });
     });
   }
-  async find( column_name, column_value) {
+  async find(column_name, column_value) {
     return new Promise((resolve, reject) => {
       const query = `SELECT * FROM ${this.table} WHERE ${column_name} = ?`;
 
