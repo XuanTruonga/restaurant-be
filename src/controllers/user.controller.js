@@ -85,13 +85,16 @@ export const update = async (req, res) => {
     const body = {
       name: data.name,
       email: data.email,
-      phone: data.phone,
+      phone: data?.isLock || false,
       province: data.province,
     };
 
     const updatedUser = await usersModel.update("id", id, body);
-    console.log("🚀 ~ updatedUser:", updatedUser);
-    return responseSuccess(res, updatedUser);
+    const response = {
+      message: "Cập nhật dữ liệu thành công",
+      data: updatedUser,
+    };
+    return responseSuccess(res, response);
   } catch (error) {
     return responseError(res, error);
   }

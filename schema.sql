@@ -3,7 +3,8 @@ USE restaurant;
 CREATE TABLE Category (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255)  NOT NULL,
-    note VARCHAR(255) 
+    note VARCHAR(255),
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -11,11 +12,13 @@ CREATE TABLE Product (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50)  NOT NULL,
     image VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NULL,
     quantity int NOT NULL,
-    const DECIMAL(12, 0) NOT NULL,
+    cost DECIMAL(12, 0) NOT NULL,
     price DECIMAL(12, 0) NOT NULL,
     categoryId INT,
-    FOREIGN KEY (categoryId) REFERENCES Category(id)
+    FOREIGN KEY (categoryId) REFERENCES Category(id),
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -28,5 +31,6 @@ CREATE TABLE User (
     email VARCHAR(100) NOT NULL UNIQUE,
     phone VARCHAR(10) NOT NULL UNIQUE,
     isLock TINYINT(1) DEFAULT 0,
+    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     province VARCHAR(100)  NOT NULL,
 );
