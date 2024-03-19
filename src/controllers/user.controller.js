@@ -85,8 +85,8 @@ export const update = async (req, res) => {
     const body = {
       name: data.name,
       email: data.email,
-      phone: data.phone,
       phone: data?.isLock || false,
+      province: data.province,
     };
 
     const updatedUser = await usersModel.update("id", id, body);
