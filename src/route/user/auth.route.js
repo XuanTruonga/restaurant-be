@@ -5,7 +5,7 @@ import isAdmin from "../../middlewares/isAdmin";
 
 const authRoute = express.Router();
 
-authRoute.get("", isAdmin, userController.getAll);
+authRoute.get("", userController.getAll);
 authRoute.post("/create", userController.create);
 authRoute.get("/verify-token", isAuthenticated, userController.verifyToken);
 authRoute.post("/sign-in", userController.login);

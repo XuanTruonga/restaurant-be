@@ -21,6 +21,7 @@ class BaseModel {
   async create(data) {
     const fields = this.fillable.join(", ");
     const placeholders = this.placeholders;
+
     const values = this.fillable.map((field) => data[field]);
 
     const query = `INSERT INTO ${this.table} (${fields}) VALUES (${placeholders})`;
@@ -38,7 +39,7 @@ class BaseModel {
       const query = `SELECT * FROM ${this.table} WHERE ${columnName} = ?`;
 
       connection.query(query, [columnValue], (error, result) => {
-        this.hanldeResult(resolve, reject, error, ...result);
+        this.hanldeResult(resolve, reject, error,result);
       });
     });
   }
@@ -46,15 +47,16 @@ class BaseModel {
   // update
   async update(columnName, columnValue, data) {
     return new Promise((resolve, reject) => {
-      const updates = Object.keys(data).join(", ");
-      console.log("🚀 ~ updates:", updates);
+      const updates = Object.keys(data).map((field) => `${field} = ?`);
+
+      const toStringUpdates = updates.join(", ");
+
       const values = Object.values(data);
-      console.log("🚀 ~ values:", values);
-      const query = `UPDATE ${this.table} SET ${updates} WHERE ${columnName} = ?`;
+      const query = `UPDATE ${this.table} SET ${toStringUpdates} WHERE ${columnName} = ?`;
 
       connection.query(query, [...values, columnValue], (error, result) => {
-        console.log("🚀 ~ result:", result);
-        this.hanldeResult(resolve, reject, error, ...result);
+      
+        this.hanldeResult(resolve, reject, error, result);
       });
     });
   }
