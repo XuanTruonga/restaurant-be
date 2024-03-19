@@ -28,4 +28,5 @@ CREATE TABLE User (
     email VARCHAR(100) NOT NULL UNIQUE,
     phone VARCHAR(10) NOT NULL UNIQUE,
     isLock TINYINT(1) DEFAULT 0,
+    province VARCHAR(100)  NOT NULL,
 );
