@@ -52,17 +52,25 @@ export const update = async (req, res) => {
 export const findById = async (req, res) => {
   try {
     const { id } = req.params;
-
     const category = await categoryModel.findOne("id", id);
-
-    if (!category ||category?.length === 0) {
-      const error = new ErrorHandler(STATUS.NOT_FOUND, "không tìm thấy danh mục");
-      return responseError(res, error);
-    }
 
     const data = {
       message: "Lấy dữ liệu thành công",
-      data: category[0],
+      data: category,
+    };
+    return responseSuccess(res, data);
+  } catch (error) {
+    return responseError(res, error);
+  }
+};
+
+export const deleteById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const category = await categoryModel.delete(id);
+    const data = {
+      message: "Xóa dữ liệu thành công",
+      data: category,
     };
     return responseSuccess(res, data);
   } catch (error) {

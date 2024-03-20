@@ -1,9 +1,4 @@
-import { STATUS } from "../config/status";
-import {
-  ErrorHandler,
-  responseError,
-  responseSuccess,
-} from "../helpers/response";
+import { responseError, responseSuccess } from "../helpers/response";
 import productModel from "../models/product.modal";
 
 export const getAll = async (req, res) => {
@@ -43,15 +38,7 @@ export const update = async (req, res) => {
   try {
     const { id } = req.params;
     const body = req.body;
-    const product = await productModel.findOne("id", id);
-    if (!product || product?.length === 0) {
-      const error = new ErrorHandler(
-        STATUS.NOT_FOUND,
-        "không tìm thấy sản phẩm"
-      );
-      return responseError(res, error);
-    }
-    
+
     const updatedProduct = await productModel.update("id", id, body);
     const response = {
       message: "Cập nhật dữ liệu thành công",
@@ -68,17 +55,24 @@ export const findById = async (req, res) => {
     const { id } = req.params;
 
     const product = await productModel.findOne("id", id);
-    if (!product || product?.length === 0) {
-      const error = new ErrorHandler(
-        STATUS.NOT_FOUND,
-        "không tìm thấy sản phẩm"
-      );
-      return responseError(res, error);
-    }
 
     const data = {
       message: "Lấy dữ liệu thành công",
-      data: product[0],
+      data: product,
+    };
+    return responseSuccess(res, data);
+  } catch (error) {
+    return responseError(res, error);
+  }
+};
+
+export const deleteById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await productModel.delete(id);
+    const data = {
+      message: "Xóa dữ liệu thành công",
+      data: product,
     };
     return responseSuccess(res, data);
   } catch (error) {
