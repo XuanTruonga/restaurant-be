@@ -8,6 +8,7 @@ export const login = async (req, res) => {
   try {
     const { username, password } = req.body;
     const existUser = await usersModel.findOne("username", username);
+    console.log("🚀 ~ existUser:", existUser);
 
     if (!existUser) {
       return res.status(400).json({ message: "Tài khoản không tồn tại" });
@@ -105,6 +106,7 @@ export const findById = async (req, res) => {
     const { id } = req.params;
 
     const user = await usersModel.findOne("id", id);
+    console.log("🚀 ~ user:", user);
     const { password, ...remaningUser } = user;
     const data = {
       message: "Lấy dữ liệu thành công",

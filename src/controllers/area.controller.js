@@ -1,12 +1,12 @@
 import { responseError, responseSuccess } from "../helpers/response";
-import categoryModel from "../models/category.model";
+import areaModel from "../models/area.modal";
 
 export const getAll = async (req, res) => {
   try {
-    const category = await categoryModel.read();
+    const area = await areaModel.read();
     const data = {
       message: "Lấy danh sách thành công.",
-      data: category,
+      data: area,
     };
     responseSuccess(res, data);
   } catch (error) {
@@ -22,11 +22,11 @@ export const create = async (req, res) => {
     //   return responseError(res, error);
     // }
 
-    const result = await categoryModel.create(body);
+    const result = await areaModel.create(body);
 
     const response = {
       data: result,
-      message: "Tạo mới danh mục thành công",
+      message: "Tạo khu vực thành công",
     };
     responseSuccess(res, response);
   } catch (error) {
@@ -38,10 +38,10 @@ export const update = async (req, res) => {
   try {
     const { id } = req.params;
     const body = req.body;
-    const updatedCategory = await categoryModel.update("id", id, body);
+    const updatedarea = await areaModel.update("id", id, body);
     const response = {
       message: "Cập nhật dữ liệu thành công",
-      data: updatedCategory,
+      data: updatedarea,
     };
     return responseSuccess(res, response);
   } catch (error) {
@@ -52,11 +52,11 @@ export const update = async (req, res) => {
 export const findById = async (req, res) => {
   try {
     const { id } = req.params;
-    const category = await categoryModel.findOne("id", id);
+    const area = await areaModel.findOne("id", id);
 
     const data = {
       message: "Lấy dữ liệu thành công",
-      data: category,
+      data: area,
     };
     return responseSuccess(res, data);
   } catch (error) {
@@ -67,10 +67,10 @@ export const findById = async (req, res) => {
 export const deleteById = async (req, res) => {
   try {
     const { id } = req.params;
-    const category = await categoryModel.delete(id);
+    const area = await areaModel.delete(id);
     const data = {
       message: "Xóa dữ liệu thành công",
-      data: category,
+      data: area,
     };
     return responseSuccess(res, data);
   } catch (error) {

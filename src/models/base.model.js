@@ -1,5 +1,6 @@
 import { connection } from "../Database";
-import { responseError, responseSuccess } from "../helpers/response";
+import { STATUS } from "../config/status";
+import { ErrorHandler } from "../helpers/response";
 
 class BaseModel {
   constructor(props) {
@@ -39,7 +40,12 @@ class BaseModel {
       const query = `SELECT * FROM ${this.table} WHERE ${columnName} = ?`;
 
       connection.query(query, [columnValue], (error, result) => {
-        this.hanldeResult(resolve, reject, error,result);
+        if (error) {
+          reject(error);
+        } else if (result && result?.length !== 0) {
+          resolve(result[0]);
+        }
+        reject(new ErrorHandler(STATUS.NOT_FOUND, "Không tìm thấy"));
       });
     });
   }
@@ -55,26 +61,31 @@ class BaseModel {
       const query = `UPDATE ${this.table} SET ${toStringUpdates} WHERE ${columnName} = ?`;
 
       connection.query(query, [...values, columnValue], (error, result) => {
-      
-        this.hanldeResult(resolve, reject, error, result);
+        if (error) {
+          reject(error);
+        } else if (result && result?.affectedRows !== 0) {
+          resolve(result);
+        }
+        reject(new ErrorHandler(STATUS.BAD_REQUEST, "Cập nhật thất bại"));
       });
     });
   }
 
   // Delete
-  async delete(res, id) {
+  async delete(id) {
+    console.log("🚀 ~ id:", id);
     const query = `DELETE FROM ${this.table} WHERE id = ?`;
 
-    connection.query(query, [id], (error, result) => {
-      if (error) {
-        return responseError(res, error);
-      }
-
-      const data = {
-        message: "Xóa thành công.",
-      };
-
-      return responseSuccess(res, data);
+    return new Promise((resolve, reject) => {
+      connection.query(query, [id], (error, result) => {
+        console.log(result);
+        if (error) {
+          reject(error);
+        } else if (result && result?.affectedRows !== 0) {
+          resolve(result);
+        }
+        reject(new ErrorHandler(STATUS.BAD_REQUEST, "Xóa thất bại"));
+      });
     });
   }
 
