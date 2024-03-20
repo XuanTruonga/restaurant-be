@@ -1,9 +1,13 @@
 import userRoutes from "./user";
-import bookRoutes from "./book";
-import ratingRoutes from "./rating";
+import categoryRoutes from "./category";
+import productRoutes from "./product";
+import areaRoutes from "./area";
+import tableRoutes from "./table";
 
 export const routes = [
   { ...userRoutes },
-  { ...bookRoutes },
-  { ...ratingRoutes },
+  { ...categoryRoutes },
+  { ...productRoutes },
+  { ...areaRoutes },
+  { ...tableRoutes },
 ];
