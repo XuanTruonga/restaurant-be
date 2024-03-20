@@ -1,5 +1,5 @@
 import { responseError, responseSuccess } from "../helpers/response";
-import productModel from "../models/product.modal";
+import productModel from "../models/product.model";
 
 export const getAll = async (req, res) => {
   try {

@@ -41,7 +41,7 @@ CREATE TABLE Area (
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE Table (
+CREATE TABLE TableEat (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50)  NOT NULL,
     note VARCHAR(255),
@@ -70,7 +70,7 @@ CREATE TABLE Order (
     tableId INT,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (orderId) REFERENCES Order(id),
-    FOREIGN KEY (tableId) REFERENCES Table(id),
+    FOREIGN KEY (tableId) REFERENCES TableEat(id),
  )
 
  CREATE TABLE OrderProductDetail (
